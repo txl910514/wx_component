@@ -10,6 +10,9 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
+    <view>
+    <text class="user-motto">{{address}}</text>
+  </view>
    <toast id="toast" />
        <dialog id='dialog' 
       title='我是标题' 

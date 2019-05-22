@@ -1,13 +1,20 @@
 //index.js
 //获取应用实例
+var bmap = require('../../utils/bmap-wx.min.js');
+console.log(bmap);
 const app = getApp()
-
+var wxMarkerData = [];
 Page({
   data: {
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    markers: [],
+    latitude: '',
+    longitude: '',
+    rgcData: {},
+    address:''
   },
   //事件处理函数
   bindViewTap: function () {
@@ -40,6 +47,33 @@ Page({
 
   },
   onLoad: function () {
+    var that = this;
+    var BMap = new bmap.BMapWX({
+        ak: 'DPNsfGiwIMeYkM6kh6dtr8VtA7GOQAST'
+    });
+    var fail = function(data) {
+        console.log(data)
+    };
+    var success = function(data) {
+        wxMarkerData = data.wxMarkerData;
+        console.log(wxMarkerData);
+        that.setData({
+          address: wxMarkerData[0].address
+        });
+        that.setData({
+            markers: wxMarkerData
+        });
+        that.setData({
+            latitude: wxMarkerData[0].latitude
+        });
+        that.setData({
+            longitude: wxMarkerData[0].longitude
+        });
+    }
+    BMap.regeocoding({
+        fail: fail,
+        success: success
+    });
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
