@@ -26,4 +26,5 @@
     </dialog>
    <button type="primary" bindtap="showToast"> showToast! </button>
    <button type="primary" bindtap="showDialog"> ClickMe! </button>
+   <button type="primary" bindtap="clickBluetooth"> 点击蓝牙! </button>
 </view>

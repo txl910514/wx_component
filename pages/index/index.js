@@ -29,6 +29,11 @@ Page({
   showDialog() {
     this.dialog.showDialog();
   },
+  clickBluetooth () {
+    wx.navigateTo({
+      url: '../bluetooth/bluetooth'
+    })
+  },
   //取消事件
   _cancelEvent() {
     console.log('你点击了取消');
