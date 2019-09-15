@@ -9,3 +9,4 @@ wx_component
 * https://imweb.io/topic/5bf3ce90611a25cc7bf1d788 小程序蓝牙
 * https://blog.csdn.net/caohoucheng/article/details/81633822 小程序 蓝牙
 * https://www.jb51.net/article/149834.htm 蓝牙定位
+* https://developers.weixin.qq.com/community/develop/doc/00022e8870c91836cf2859bd65b400?_at=1560037567190

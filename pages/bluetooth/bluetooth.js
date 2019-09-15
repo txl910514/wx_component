@@ -51,7 +51,9 @@ Page({
         success: function(res) {
             console.log(res);
             /* 获取蓝牙设备列表 */
-            that.getBluetoothDevices();
+            setInterval(function () {
+              that.getBluetoothDevices();
+            }, 10 * 1000)
         },
         fail(res) {
         }
@@ -60,14 +62,14 @@ Page({
   getBluetoothDevices() {
     var that = this;
     console.log(111);
-    wx.onBluetoothDeviceFound(function(devices) {
-        console.log('new device list has founded')
-        console.dir(devices);
-    })
+    // wx.onBluetoothDeviceFound(function(devices) {
+    //     console.log('new device list has founded')
+    //     console.dir(devices);
+    // })
     wx.getBluetoothDevices({
-        // services: [],
-        // allowDuplicatesKey: false,
-        // interval: 0,
+        services: [],
+        allowDuplicatesKey: false,
+        interval: 1000,
         success: function(res) {
             console.log(res);
             if (res.devices.length > 0) {
