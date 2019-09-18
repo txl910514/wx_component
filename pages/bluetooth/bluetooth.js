@@ -1,4 +1,8 @@
 const app = getApp()
+const utils = require('../../utils/util');
+
+console.log(utils);
+console.log(utils.formatTime(new Date()));
 
 function inArray(arr, key, val) {
   for (let i = 0; i < arr.length; i++) {
