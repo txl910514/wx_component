@@ -42,13 +42,19 @@ Page({
         this.startBluetoothDevicesDiscovery()
       },
       fail: (res) => {
+        wx.showToast({
+          title: '请开启蓝牙',
+          icon: 'fails',
+          duration: 1000
+        })
         if (res.errCode === 10001) {
-          wx.onBluetoothAdapterStateChange(function (res) { // 监听蓝牙适配器状态变化事件
+          wx.onBluetoothAdapterStateChange((res) => {
             console.log('onBluetoothAdapterStateChange', res)
             if (res.available) {
               this.startBluetoothDevicesDiscovery()
             }
-          })
+          } // 监听蓝牙适配器状态变化事件
+)
         }
       }
     })
@@ -81,7 +87,9 @@ Page({
         } else {
           data[`devices[${idx}]`] = device
         }
-        this.setData(data)
+        this.setData(data, () => {
+          console.log(this.data.devices);
+        })
       })
     })
   },
