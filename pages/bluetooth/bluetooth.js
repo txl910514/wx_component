@@ -38,7 +38,6 @@ Page({
   openBluetoothAdapter() {
     wx.openBluetoothAdapter({ // 初始化蓝牙模块
       success: (res) => {
-        console.log('openBluetoothAdapter success', res)
         this.startBluetoothDevicesDiscovery()
       },
       fail: (res) => {
@@ -75,6 +74,7 @@ Page({
   },
   onBluetoothDeviceFound() {
     wx.onBluetoothDeviceFound((res) => { // 监听寻找到新设备的事件
+      console.log(res);
       res.devices.forEach(device => {
         if (!device.name && !device.localName) {
           return
