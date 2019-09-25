@@ -104,16 +104,21 @@ Page({
   createBLEConnection(e) {
     const ds = e.currentTarget.dataset
     const deviceId = ds.deviceId
-    const name = ds.name
+    const name = ds.name;
+    console.log('wwwwws');
     wx.createBLEConnection({ // 连接低功耗蓝牙设备
       deviceId,
       success: (res) => {
+        console.log(res);
         this.setData({
           connected: true,
           name,
           deviceId,
         })
         this.getBLEDeviceServices(deviceId)
+      },
+      fail: (res) => {
+        console.log(res);
       }
     })
     this.stopBluetoothDevicesDiscovery()
@@ -145,6 +150,9 @@ Page({
               deviceId,
               serviceId,
               characteristicId: item.uuid,
+              success: function (res) {
+                console.log(res);
+              }
             })
           }
           if (item.properties.write) {
