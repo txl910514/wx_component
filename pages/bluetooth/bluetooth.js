@@ -1,4 +1,8 @@
 const app = getApp()
+const utils = require('../../utils/util');
+
+console.log(utils);
+console.log(utils.formatTime(new Date()));
 
 function inArray(arr, key, val) {
   for (let i = 0; i < arr.length; i++) {
@@ -34,17 +38,22 @@ Page({
   openBluetoothAdapter() {
     wx.openBluetoothAdapter({ // 初始化蓝牙模块
       success: (res) => {
-        console.log('openBluetoothAdapter success', res)
         this.startBluetoothDevicesDiscovery()
       },
       fail: (res) => {
+        wx.showToast({
+          title: '请开启蓝牙',
+          icon: 'fails',
+          duration: 1000
+        })
         if (res.errCode === 10001) {
-          wx.onBluetoothAdapterStateChange(function (res) { // 监听蓝牙适配器状态变化事件
+          wx.onBluetoothAdapterStateChange((res) => {
             console.log('onBluetoothAdapterStateChange', res)
             if (res.available) {
               this.startBluetoothDevicesDiscovery()
             }
-          })
+          } // 监听蓝牙适配器状态变化事件
+)
         }
       }
     })
@@ -65,6 +74,7 @@ Page({
   },
   onBluetoothDeviceFound() {
     wx.onBluetoothDeviceFound((res) => { // 监听寻找到新设备的事件
+      console.log(res);
       res.devices.forEach(device => {
         if (!device.name && !device.localName) {
           return
@@ -77,7 +87,9 @@ Page({
         } else {
           data[`devices[${idx}]`] = device
         }
-        this.setData(data)
+        this.setData(data, () => {
+          console.log(this.data.devices);
+        })
       })
     })
   },
@@ -92,16 +104,21 @@ Page({
   createBLEConnection(e) {
     const ds = e.currentTarget.dataset
     const deviceId = ds.deviceId
-    const name = ds.name
+    const name = ds.name;
+    console.log('wwwwws');
     wx.createBLEConnection({ // 连接低功耗蓝牙设备
       deviceId,
       success: (res) => {
+        console.log(res);
         this.setData({
           connected: true,
           name,
           deviceId,
         })
         this.getBLEDeviceServices(deviceId)
+      },
+      fail: (res) => {
+        console.log(res);
       }
     })
     this.stopBluetoothDevicesDiscovery()
@@ -133,6 +150,9 @@ Page({
               deviceId,
               serviceId,
               characteristicId: item.uuid,
+              success: function (res) {
+                console.log(res);
+              }
             })
           }
           if (item.properties.write) {
