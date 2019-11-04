@@ -107,6 +107,7 @@ Page({
     }
   },
   getUserInfo: function (e) {
+    console.log(e)
     console.log(e.detail.userInfo.avatarUrl)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
