@@ -14,7 +14,8 @@ Page({
     latitude: '',
     longitude: '',
     rgcData: {},
-    address:''
+    address:'',
+    img: ''
   },
   //事件处理函数
   bindViewTap: function () {
@@ -49,7 +50,9 @@ Page({
     this.toast = this.selectComponent("#toast");
 
     this.dialog = this.selectComponent("#dialog");
-
+    this.setData({
+      img: 'https://www.qizhaokeji.cn/0d6c2776-7a09-4785-bd78-1127c2d1ae7b.jpg'
+    })
   },
   onLoad: function () {
     var that = this;
@@ -74,6 +77,9 @@ Page({
         that.setData({
             longitude: wxMarkerData[0].longitude
         });
+            // that.setData({
+    //   img: 'https://www.qizhaokeji.cn/0d6c2776-7a09-4785-bd78-1127c2d1ae7b.jpg'
+    // })
     }
     BMap.regeocoding({
         fail: fail,
