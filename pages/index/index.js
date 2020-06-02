@@ -14,7 +14,7 @@ Page({
     latitude: '',
     longitude: '',
     rgcData: {},
-    address:'',
+    address: '',
     img: ''
   },
   //事件处理函数
@@ -30,7 +30,7 @@ Page({
   showDialog() {
     this.dialog.showDialog();
   },
-  clickBluetooth () {
+  clickBluetooth() {
     wx.navigateTo({
       url: '../bluetooth/bluetooth'
     })
@@ -57,33 +57,33 @@ Page({
   onLoad: function () {
     var that = this;
     var BMap = new bmap.BMapWX({
-        ak: 'DPNsfGiwIMeYkM6kh6dtr8VtA7GOQAST'
+      ak: 'DPNsfGiwIMeYkM6kh6dtr8VtA7GOQAST'
     });
-    var fail = function(data) {
-        console.log(data)
+    var fail = function (data) {
+      console.log(data)
     };
-    var success = function(data) {
-        wxMarkerData = data.wxMarkerData;
-        console.log(wxMarkerData);
-        that.setData({
-          address: wxMarkerData[0].address
-        });
-        that.setData({
-            markers: wxMarkerData
-        });
-        that.setData({
-            latitude: wxMarkerData[0].latitude
-        });
-        that.setData({
-            longitude: wxMarkerData[0].longitude
-        });
-            // that.setData({
-    //   img: 'https://www.qizhaokeji.cn/0d6c2776-7a09-4785-bd78-1127c2d1ae7b.jpg'
-    // })
+    var success = function (data) {
+      wxMarkerData = data.wxMarkerData;
+      console.log(wxMarkerData);
+      that.setData({
+        address: wxMarkerData[0].address
+      });
+      that.setData({
+        markers: wxMarkerData
+      });
+      that.setData({
+        latitude: wxMarkerData[0].latitude
+      });
+      that.setData({
+        longitude: wxMarkerData[0].longitude
+      });
+      // that.setData({
+      //   img: 'https://www.qizhaokeji.cn/0d6c2776-7a09-4785-bd78-1127c2d1ae7b.jpg'
+      // })
     }
     BMap.regeocoding({
-        fail: fail,
-        success: success
+      fail: fail,
+      success: success
     });
     if (app.globalData.userInfo) {
       this.setData({
@@ -119,6 +119,24 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  clickPlayAudio: function () {
+    console.log(1111);
+    const backgroundAudioManager = wx.getBackgroundAudioManager()
+    // wx.setInnerAudioOption(
+    //   {
+    //     obeyMuteSwitch: false
+    //   }
+    // );
+    backgroundAudioManager.src = 'https://www.qizhaokeji.cn/b6a96965-8464-4e8d-8856-968aea48febc%E7%8E%8B%E8%B6%85%E7%BE%A4%20-%20%E9%82%A3%E5%B0%B1%E8%BF%99%E6%A0%B7%E5%90%A7.mp3';
+    backgroundAudioManager.title = '测试';
+    backgroundAudioManager.onPlay(() => {
+      console.log('开始播放')
+    })
+    backgroundAudioManager.onError((res) => {
+      console.log(res.errMsg)
+      console.log(res.errCode)
     })
   }
 })
